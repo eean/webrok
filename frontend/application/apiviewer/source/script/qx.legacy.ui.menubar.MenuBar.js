@@ -1,0 +1,1 @@
+{type:"class",attributes:{"name":"MenuBar","packageName":"qx.legacy.ui.menubar","superClass":"qx.legacy.ui.toolbar.ToolBar","fullName":"qx.legacy.ui.menubar.MenuBar","type":"class"}}

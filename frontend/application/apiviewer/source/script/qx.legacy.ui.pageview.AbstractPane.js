@@ -1,0 +1,1 @@
+{type:"class",attributes:{"isAbstract":"true","name":"AbstractPane","packageName":"qx.legacy.ui.pageview","superClass":"qx.legacy.ui.layout.CanvasLayout","childClasses":"qx.legacy.ui.pageview.buttonview.Pane,qx.legacy.ui.pageview.radioview.Pane,qx.legacy.ui.pageview.tabview.Pane","fullName":"qx.legacy.ui.pageview.AbstractPane","type":"class"}}

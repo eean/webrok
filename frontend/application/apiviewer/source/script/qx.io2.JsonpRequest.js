@@ -1,0 +1,1 @@
+{type:"class",attributes:{"isStatic":"true","name":"JsonpRequest","packageName":"qx.io2","fullName":"qx.io2.JsonpRequest","type":"bootstrap"}}

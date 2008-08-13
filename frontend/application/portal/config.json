@@ -1,0 +1,20 @@
+// portal demo - config.json
+{
+  "name"    : "Portal config.json",
+
+  "include" :
+  [
+    {
+      "path" : "../../tool/data/config/application.json"
+    }
+  ],
+
+
+  "let" :
+  {
+    "APPLICATION"  : "portal",
+    "QOOXDOO_PATH" : "../../framework",
+    "QOOXDOO_URI"  : "../${QOOXDOO_PATH}",
+    "CACHE"        : "../../cache"
+  }
+}

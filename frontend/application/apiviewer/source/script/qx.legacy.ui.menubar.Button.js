@@ -1,0 +1,1 @@
+{type:"class",attributes:{"name":"Button","packageName":"qx.legacy.ui.menubar","superClass":"qx.legacy.ui.toolbar.MenuButton","fullName":"qx.legacy.ui.menubar.Button","type":"class"}}
