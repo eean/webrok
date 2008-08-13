@@ -17,10 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **************************************************************************/
-/* 
-#embed(qx/icon/${qx.icontheme}/16/actions/media-skip-backward.png)
-#embed(qx/icon/${qx.icontheme}/16/actions/media-playback-start.png)
-*/
 
 qx.Class.define("webrok.Application",
 {
@@ -35,7 +31,7 @@ qx.Class.define("webrok.Application",
         var appender = qx.log.appender.Native;
         this.debug("hello world");
         var layout = new qx.ui.layout.Dock();
-    	var container = new qx.ui.container.Composite(layout);
+        var container = new qx.ui.container.Composite(layout);
 
         var toolbar = new qx.ui.toolbar.ToolBar;
         toolbar.setShow("both");
