@@ -1,0 +1,3 @@
+frontend - the qooxdoo framework
+webrok - the source files for the qooxdoo interface for webrok
+server_amarok_script - the QtScript HTTP server, runs within Amarok
