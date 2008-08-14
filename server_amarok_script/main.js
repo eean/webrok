@@ -18,23 +18,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **************************************************************************/
 
-print( "file included? " + Importer.include( "HttpServer.js" ) );
+Importer.include( "HttpServer.js" );
 
-function fileResponse( path )
+var prefix = "";
+
+function Webrok()
+{
+    prefix = new QFileInfo(  Amarok.Info.scriptPath() ).absoluteDir().absolutePath();
+    prefix += "/webrok/build/"
+    print( "The prefix is: " + prefix );
+}
+
+Webrok.prototype.fileResponse =  function( path )
 {
     print( "requesting " + path );
-    var prefix = "/home/ian/work/qoo2/";
+
     if( path === "/" || path === "" )
     {
-        path = "index.js.html";
+        path = "index.html";
     }
     //we need to make sure it doesn't ../ out of the root
     url = new QUrl( path );
     var fi = new QFileInfo( prefix + url.path() );
-    if( fi.absoluteFilePath().indexOf( prefix ) == 0 )
+    if( fi.filePath().indexOf( prefix ) == 0 )
     {
-        print( "sending " + fi.absoluteFilePath() );
-        var file = new QFile( fi.absoluteFilePath() );
+        print( "sending " + fi.filePath() );
+        var file = new QFile( fi.filePath() );
         if( file.open( QIODevice.ReadOnly ) )
         {
             var ret = new Object();
@@ -57,17 +66,12 @@ function fileResponse( path )
     }
     else
     {
-        print( fi.absoluteFilePath() + " fails security check." );
+        print( fi.filePath() + " fails security check." );
         return null; //send 404 error
     }
 }
 
-function testResponse()
-{
-    return "<h3>test</h3>";
-}
-
-function ajaxResponse( pathStr )
+Webrok.prototype.ajaxResponse = function( pathStr )
 {
     url = new QUrl( pathStr );
     command = url.path();
@@ -84,7 +88,7 @@ function ajaxResponse( pathStr )
         return ret;
         
         case "/savePlaylist":
-            Amarok.Playlist.savePlaylist("//home/ian/work/qoo2/current.xspf");
+            Amarok.Playlist.savePlaylist( prefix + "current.xspf");
             ret.mimeType = "text/plain";
             ret.content =  "saving playlist"
         return ret;
@@ -117,7 +121,7 @@ function ajaxResponse( pathStr )
     return null; //404
 }
 
-function iconResponse( pathStr )
+Webrok.prototype.iconResponse = function( pathStr )
 {
   var iconName = new QFileInfo( pathStr ).fileName();
   var iconPath = Amarok.Info.iconPath( iconName, Amarok.Info.IconSizes.Medium );
@@ -134,7 +138,7 @@ function iconResponse( pathStr )
 }
 
 var http = new HttpServer();
-http.register( "/ajax", ajaxResponse );
-http.register( "/test", testResponse );
-http.register( "/icon", iconResponse );
-http.register( "/", fileResponse );
+var webrok = new Webrok();
+http.register( "/ajax", webrok.ajaxResponse );
+http.register( "/icon", webrok.iconResponse );
+http.register( "/", webrok.fileResponse );
