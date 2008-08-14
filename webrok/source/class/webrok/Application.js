@@ -26,6 +26,35 @@ qx.Class.define("webrok.Application",
   {
     main : function()
     {
+        function msToMinutes( ms )
+        {
+            function two(x) {return ((x>9)?"":"0")+x}
+            function three(x) {return ((x>99)?"":"0")+((x>9)?"":"0")+x}
+
+            function time(ms) 
+            {
+                var sec = Math.floor(ms/1000);
+                //ms = ms % 1000;
+                //var t = two(ms);
+
+                var min = Math.floor(sec/60);
+                sec = sec % 60;
+                var t = two(sec);
+
+                var hr = Math.floor(min/60);
+                min = min % 60;
+                t = two(min) + ":" + t;
+                return t;
+            }
+            if( isNaN( ms ) )
+            {
+                return "";
+            }
+            else
+            {
+                return time( ms );
+            }
+        }
         this.base(arguments);
         //needed by generator bug:
         var appender = qx.log.appender.Native;
@@ -83,7 +112,7 @@ qx.Class.define("webrok.Application",
                 var tracks = jspf.playlist.track;
                 for( var it = 0; it < tracks.length; it++ )
                 {
-                    var row = [tracks[it].trackNum, tracks[it].title, tracks[it].creator, tracks[it].album, tracks[it].duration ]
+                    var row = [( isNaN(tracks[it].trackNum ) ? "" : tracks[it].trackNum), tracks[it].title, tracks[it].creator, tracks[it].album, msToMinutes( tracks[it].duration ) ]
                     rows.push( row );
                     this.debug( "pushing " + row );
                 }

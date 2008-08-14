@@ -2864,125 +2864,141 @@ members:{_createRootWidget:function(){return new qx.ui.root.Application(document
 })();
 (function(){var a="GET",
 b="text/plain",
-c="activate",
-d="completed",
-e="Next",
-f="both",
-g="/ajax/play?row=",
-h="/icons/media-playback-start",
-i="center",
-j="#",
-k="/icons/media-skip-forward",
-l="Artist",
-m="/ajax/next",
-n="Length",
-o="/icons/media-playback-pause",
-p="Pause",
-q="/current.xspf",
-r="Previous",
-s="north",
-t="/ajax/previous",
-u="cellDblclick",
-v="/ajax/savePlaylist",
-w="Title",
-x="Play",
-y="webrok.Application",
-z="/ajax/pause",
-A="Album",
-B="/icons/media-skip-backward",
-C="/ajax/start";
-qx.Class.define(y,
+c="",
+d="activate",
+e="0",
+f="completed",
+g="Next",
+h="both",
+i="/ajax/play?row=",
+j="/icons/media-playback-start",
+k="center",
+l="#",
+m="/icons/media-skip-forward",
+n="Artist",
+o="/ajax/next",
+p="Length",
+q="/icons/media-playback-pause",
+r="Pause",
+s=":",
+u="/current.xspf",
+v="Previous",
+w="north",
+y="/ajax/previous",
+z="cellDblclick",
+A="/ajax/savePlaylist",
+B="Title",
+C="Play",
+D="webrok.Application",
+E="/ajax/pause",
+F="Album",
+G="/icons/media-skip-backward",
+H="/ajax/start";
+qx.Class.define(D,
 {extend:qx.application.Standalone,
-members:{main:function(){arguments.callee.base.call(this);
-var D=qx.log.appender.Native;
+members:{main:function(){function I(J){function K(L){return ((L>9)?c:e)+L;
+}function M(L){return ((L>99)?c:e)+((L>9)?c:e)+L;
+}function N(J){var O=Math.floor(J/1000);
+var P=Math.floor(O/60);
+O=O%60;
+var Q=K(O);
+var R=Math.floor(P/60);
+P=P%60;
+Q=K(P)+s+Q;
+return Q;
+}
+if(isNaN(J)){return c;
+}else{return N(J);
+}}arguments.callee.base.call(this);
+var S=qx.log.appender.Native;
 this.debug("hello world");
-var E=new qx.ui.layout.Dock();
-var F=new qx.ui.container.Composite(E);
-var G=new qx.ui.toolbar.ToolBar;
-G.setShow(f);
-var H=new qx.ui.toolbar.Button(r,
-B);
-H.addListener(c,
-function(){var I=new qx.io.remote.Request(t,
+var T=new qx.ui.layout.Dock();
+var U=new qx.ui.container.Composite(T);
+var V=new qx.ui.toolbar.ToolBar;
+V.setShow(h);
+var W=new qx.ui.toolbar.Button(v,
+G);
+W.addListener(d,
+function(){var X=new qx.io.remote.Request(y,
 a,
 b);
-I.send();
+X.send();
 });
-var J=new qx.ui.toolbar.Button(x,
-h);
-J.addListener(c,
-function(){var I=new qx.io.remote.Request(C,
+var Y=new qx.ui.toolbar.Button(C,
+j);
+Y.addListener(d,
+function(){var X=new qx.io.remote.Request(H,
 a,
 b);
-I.send();
+X.send();
 });
-var K=new qx.ui.toolbar.Button(p,
-o);
-K.addListener(c,
-function(){var I=new qx.io.remote.Request(z,
+var ba=new qx.ui.toolbar.Button(r,
+q);
+ba.addListener(d,
+function(){var X=new qx.io.remote.Request(E,
 a,
 b);
-I.send();
+X.send();
 });
-var L=new qx.ui.toolbar.Button(e,
-k);
-L.addListener(c,
-function(){var I=new qx.io.remote.Request(m,
+var bb=new qx.ui.toolbar.Button(g,
+m);
+bb.addListener(d,
+function(){var X=new qx.io.remote.Request(o,
 a,
 b);
-I.send();
+X.send();
 });
-G.add(H);
-G.add(J);
-G.add(K);
-G.add(L);
-F.add(G,
-{edge:s});
-var M=new qx.ui.table.model.Simple();
-M.setColumns([j,
-w,
-l,
-A,
-n]);
-var N=new qx.io.remote.Request(v,
+V.add(W);
+V.add(Y);
+V.add(ba);
+V.add(bb);
+U.add(V,
+{edge:w});
+var bc=new qx.ui.table.model.Simple();
+bc.setColumns([l,
+B,
+n,
+F,
+p]);
+var bd=new qx.io.remote.Request(A,
 a,
 b);
-N.addListener(d,
-function(O){this.debug("hello"+O.getStatusCode());
-if(O.getStatusCode()!=200){this.error("statuscode was: + "+O.getStatusCode());
+bd.addListener(f,
+function(be){this.debug("hello"+be.getStatusCode());
+if(be.getStatusCode()!=200){this.error("statuscode was: + "+be.getStatusCode());
 return;
-}var P=new qx.io.remote.Request(q,
+}var bf=new qx.io.remote.Request(u,
 a,
 b);
-P.addListener(d,
-function(Q){var R=XSPF.XMLfromString(Q.getContent());
-var S=XSPF.toJSPF(R);
-this.debug(S);
-this.debug("the length:"+S.playlist.track.length);
-var T=new Array();
-var U=S.playlist.track;
-for(var V=0;V<U.length;V++){var W=[U[V].trackNum,
-U[V].title,
-U[V].creator,
-U[V].album,
-U[V].duration];
-T.push(W);
-this.debug("pushing "+W);
-}M.addRows(T);
+bf.addListener(f,
+function(bg){var bh=XSPF.XMLfromString(bg.getContent());
+var bi=XSPF.toJSPF(bh);
+this.debug(bi);
+this.debug("the length:"+bi.playlist.track.length);
+var bj=new Array();
+var bk=bi.playlist.track;
+for(var bl=0;bl<bk.length;bl++){var bm=[(isNaN(bk[bl].trackNum)?c:bk[bl].trackNum),
+bk[bl].title,
+bk[bl].creator,
+bk[bl].album,
+I(bk[bl].duration)];
+bj.push(bm);
+this.debug("pushing "+bm);
+}bc.addRows(bj);
 });
-P.send();
+bf.send();
 });
-N.send();
-var X=new qx.ui.table.Table(M);
-X.addListener(u,
-function(Y){var I=new qx.io.remote.Request(g+Y.getRow(),
+bd.send();
+var bn=new qx.ui.table.Table(bc);
+bn.addListener(z,
+function(bo){var X=new qx.io.remote.Request(i+bo.getRow(),
 a,
 b);
-I.send();
+X.send();
 });
-F.add(X,
-{edge:i});
-this.getRoot().add(F,
+U.add(bn,
+{edge:k});
+this.getRoot().add(U,
 {edge:0});
 }}});
 })();
